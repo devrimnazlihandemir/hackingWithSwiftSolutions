@@ -1,0 +1,33 @@
+// Check Point 4
+
+enum CheckPointError4: Error {
+    case outOfBounds
+    case noRoot
+}
+
+func integerSquareRoot(_ number: Int) throws -> Int {
+    if number < 1 || number > 10_000 {
+        throw CheckPointError4.outOfBounds
+    }
+    
+    for i in 1...number {
+        let square = i * i
+        if square == number {
+            return i
+        } else if square > number {
+            throw CheckPointError4.noRoot
+        }
+    }
+    
+    throw CheckPointError4.noRoot
+}
+
+do {
+    let number = 9
+    let squareRoot = try integerSquareRoot(number)
+    print("The square root of \(number) is \(squareRoot)")
+} catch CheckPointError4.outOfBounds {
+    print("Error: Number is out of bounds")
+} catch CheckPointError4.noRoot {
+    print("Error: No integer square root found")
+}
